@@ -1,5 +1,9 @@
 name: Working Dir and Shells
 on: [push]
+defaults:
+    run:
+        shell: bash
+        # working-directory: D:/github as long as this dir exists you can override
 jobs:
   display-working-dir-and-list-files-ubuntu:
     runs-on: ubuntu-latest
@@ -11,9 +15,16 @@ jobs:
         echo $GITHUB_SHA
         echo $GITHUB_WORKSPACE
         echo $GITHUB_REPOSITORY
+    - name: Change work dir for one step
+      working-directory: /home/runner
+      run: pwd
 
+      
   display-working-dir-and-list-files-windows:
     runs-on: windows-latest
+    defaults:
+        run:
+            shell: pwsh
     steps:
         - name: Display Working Directory and List Files
           run: |
@@ -22,3 +33,7 @@ jobs:
                 echo $env:GITHUB_SHA
                 echo $env:GITHUB_WORKSPACE
                 echo $env:GITHUB_REPOSITORY
+        - name: Python Shell override
+          run: |
+                python -c "print('Hello from Python!')"
+          shell: python
