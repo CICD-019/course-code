@@ -26,4 +26,5 @@ jobs:
         run: Write-Output "Windows Job"
       
       - name: Error Step
-        run: doesnotexits
+        run: Write-Output "This step will fail"
+        continue-on-error: true
