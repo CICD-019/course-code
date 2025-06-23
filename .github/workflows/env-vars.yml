@@ -35,7 +35,7 @@ jobs:
                echo "To get to the other side!" >> "$GITHUB_ENV"
                curl -s https://icanhazdadjoke.com/ >> "$GITHUB_ENV"
                echo " " >>  "$GITHUB_ENV"
-               echo "$DELIMETER" 
+               echo "$DELIMETER" >> "$GITHUB_ENV"
 
            -  name: Log custom ENV VAR
               env:
