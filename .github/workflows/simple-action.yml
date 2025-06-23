@@ -10,6 +10,6 @@ jobs:
               uses: actions/hello-world-javascript-action@main #@v1.2.0 or @v1 or @commit_id
               with:
                 who-to-greet: Shreyansh
-                
+
             - name: Log Greet Time
-              run: echo "{{ steps.greet.ouputs.time }}""
+              run: echo "{{ steps.greet.outputs.time }}""
