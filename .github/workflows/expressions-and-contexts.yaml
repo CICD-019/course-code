@@ -3,7 +3,16 @@ on: [push, pull_request, issues, workflow_dispatch]
 run-name: "Expressions and Workflow by @${{ github.actor }}, event: ${{ github.event_name }}" 
 
 jobs:
+    runs-on-issues-and-prs:
+     runs-on: ubuntu-latest
+     if: github.event_name == 'issues' || github.event_name == 'pull_request'
+     steps:
+        - name: Run only if Issue has Bug Label
+          if: contains(github.event.issue.labels.*.name, 'bug')
+          run: echo ${{ join(github.event.issue.labels.*.name, ', ') }} #This will print all labels of the issue
+          
     using-expressions-and-contexts:
+      if: github.event_name == 'push'
       runs-on: ubuntu-latest
       steps:
         - name: Expressions
@@ -32,3 +41,7 @@ jobs:
         #steps has breid fata on expressions steps along with outputs, if any
         #runner has info on the runner machine
 
+
+
+####        #if: contains('hello', 'he') #if: startsWith('hello', 'he') #if: endsWith('hello', 'lo')
+####        #if: contains(fromjson('["issues", "pull_request"]'), github.event_name)
