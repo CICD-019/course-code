@@ -12,4 +12,4 @@ jobs:
                 who-to-greet: Shreyansh
 
             - name: Log Greet Time
-              run: echo "{{ steps.greet.outputs.time }}""
+              run: echo "{{ steps.greet.outputs.time }}"
