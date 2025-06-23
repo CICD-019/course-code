@@ -19,7 +19,7 @@ jobs:
         
         -  name: Dump Context
            run: | 
-                echo '${{ toJson(github) }}
+                echo '${{ toJson(github) }}'
                 echo '${{ toJson(job) }}'
                 echo '${{ toJson(secrets) }}'
                 echo '${{ toJson(steps) }}'
