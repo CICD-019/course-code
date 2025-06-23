@@ -25,6 +25,18 @@ jobs:
                 echo "JOB_LEVEL_ENV=$RANDOM" >> "$GITHUB_ENV"
 #These dynamic variables will be available to all steps in this job
 #This is for bash..so see for powershell in documentation
+
+           -  name: Multiline ENV VAR
+              run: |
+               DELIMETER=1234
+               echo "RANDOM_JOKE<<$DELIMETER" >> "$GITHUB_ENV"
+               echo "Here is the joke" >> "$GITHUB_ENV"
+               echo "Why did the chicken cross the road?" >> "$GITHUB_ENV"
+               echo "To get to the other side!" >> "$GITHUB_ENV"
+               curl -s https://icanhazdadjoke.com/ >> "$GITHUB_ENV"
+               echo " " >>  "$GITHUB_ENV"
+               echo "$DELIMETER" 
+
            -  name: Log custom ENV VAR
               env:
                STEP_LEVEL_ENV: Available to this step only 
@@ -35,3 +47,4 @@ jobs:
                 echo $WF_LEVEL_ENV
                 echo $JOB_LEVEL_ENV
                 echo $NEW_ENV_VAR
+                echo $RANDOM_JOKE
