@@ -17,3 +17,6 @@ jobs:
                     issue_number: context.issue.number,
                     body: 'Thanks for Contributing',
                 });
+
+#Github auto comments on pr when a new PR is opened.
+#Under settings give write permissions to workflows , first.

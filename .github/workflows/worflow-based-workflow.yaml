@@ -1,0 +1,15 @@
+name: Event Based Workflow
+    #Workflow running based on another workflow(event.yaml)
+on: 
+    workflow_run:
+        workflows: [Repository Event]
+        types: [completed]
+
+jobs:
+    echo-string:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Echo a string
+              run: echo "This workflow is triggered by another workflow"
+              
+           
