@@ -18,6 +18,13 @@ jobs:
               run: echo $GITHUB_REF
            -  name: Log Context
               run: echo '${{ github.ref}}' 
+           
+           -  name: Set ENV var 
+              run: |
+                echo "NEW_ENV_VAR=$(date)" >> "$GITHUB_ENV"
+                echo "JOB_LEVEL_ENV=$RANDOM" >> "$GITHUB_ENV"
+#These dynamic variables will be available to all steps in this job
+#This is for bash..so see for powershell in documentation
            -  name: Log custom ENV VAR
               env:
                STEP_LEVEL_ENV: Available to this step only 
@@ -27,3 +34,4 @@ jobs:
                 echo $STEP_LEVEL_ENV
                 echo $WF_LEVEL_ENV
                 echo $JOB_LEVEL_ENV
+                echo $NEW_ENV_VAR
