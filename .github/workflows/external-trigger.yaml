@@ -3,6 +3,7 @@
 name: External Events
 on: 
     repository_dispatch:
+        #types: [external_event]  # This is the type of event you want to listen for
 
 jobs:
     echo-a-string:
@@ -10,6 +11,6 @@ jobs:
         steps:
             - run: echo "Repository Dispatched"
 
-            
+
 #This has to live on default(main) branch
 #Any other branch wont be suitable for repository dispatch event
