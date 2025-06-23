@@ -15,4 +15,13 @@ jobs:
           run: echo "::warning title::Warning Title,file=app.js,line-2,endline=3,col=5,endcolumn-7::Missing Semicolon"
         - name: Setting an notice message with params
           run: echo "::notice title::Notice Title,file=app.js,line-2,endline=3,col=5,endcolumn-7::Missing Semicolon"
-          
+        - name: Group of logs
+          run: |
+                echo "::group::Group Title"
+                echo "This is a group of logs"
+                echo "This is another log in the group"
+                echo "::endgroup::"
+        - name: Masking a  sensitive value'
+          run : echo "::add-mask::This is a sensitive value"
+        - name: Try echoing the secret
+          run:  echo "This is a sensitive value"
