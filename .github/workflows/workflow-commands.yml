@@ -1,27 +1,34 @@
 name: Workflow Commands
 on: [push]
 
-jobs: 
+jobs:
   sending-commands-from-workflow-to-runner:
     runs-on: ubuntu-latest
     steps:
-        - name: Setting an error message
-          run: echo "::error::Missing Semicolon"
-        - name: Setting an error message with params
-          run: echo "::error title::Error title,file=app.js,line-2,endline=3,col=5,endcolumn-7::Missing Semicolon"
-        - name: Setting an debug message with params
-          run: echo "::debug title::Debug Title,file=app.js,line-2,endline=3,col=5,endcolumn-7::Missing Semicolon"
-        - name: Setting an warning message with params
-          run: echo "::warning title::Warning Title,file=app.js,line-2,endline=3,col=5,endcolumn-7::Missing Semicolon"
-        - name: Setting an notice message with params
-          run: echo "::notice title::Notice Title,file=app.js,line-2,endline=3,col=5,endcolumn-7::Missing Semicolon"
-        - name: Group of logs
-          run: |
-                echo "::group::Group Title"
-                echo "This is a group of logs"
-                echo "This is another log in the group"
-                echo "::endgroup::"
-        - name: Masking a  sensitive value'
-          run : echo "::add-mask::This is a sensitive value"
-        - name: Try echoing the secret
-          run:  echo "This is a sensitive value"
+      - name: Set an error message
+        run: echo "::error::Missing Semicolon"
+
+      - name: Set an error message with parameters
+        run: echo "::error title=Error title,file=app.js,line=2,endLine=3,col=5,endColumn=7::Missing Semicolon"
+
+      - name: Set a debug message
+        run: echo "::debug::Missing Semicolon"
+
+      - name: Set a warning message with parameters
+        run: echo "::warning title=Warning Title,file=app.js,line=2,endLine=3,col=5,endColumn=7::Missing Semicolon"
+
+      - name: Set a notice message with parameters
+        run: echo "::notice title=Notice Title,file=app.js,line=2,endLine=3,col=5,endColumn=7::Missing Semicolon"
+
+      - name: Group of logs
+        run: |
+          echo "::group::Group Title"
+          echo "This is a group of logs"
+          echo "This is another log in the group"
+          echo "::endgroup::"
+
+      - name: Masking a sensitive value
+        run: echo "::add-mask::This is a sensitive value"
+
+      - name: Try echoing the secret
+        run: echo "This is a sensitive value"
