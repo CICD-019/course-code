@@ -9,7 +9,7 @@ jobs:
     env-vars-and-context:
         runs-on: ubuntu-latest
         if: github.ref == 'refs/heads/main'
-        #Here if: $GITHUB_REF is invalid
+        #Here $GITHUB_REF is invalid
         #So somwehere you can use only context and vice versa
         env:
             JOB_LEVEL_ENV: Available to all steps in this job
