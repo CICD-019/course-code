@@ -19,7 +19,7 @@ jobs:
       working-directory: /home/runner
       run: pwd
 
-      
+
   display-working-dir-and-list-files-windows:
     runs-on: windows-latest
     defaults:
@@ -35,5 +35,6 @@ jobs:
                 echo $env:GITHUB_REPOSITORY
         - name: Python Shell override
           run: |
-                python -c "print('Hello from Python!')"
+                import platform
+                print(platform.processor())
           shell: python
