@@ -1,0 +1,46 @@
+name: Filter run
+
+on:
+  push:
+    branches:
+      - main
+      - "feature/*"  # Matches feature/featA and feature/featB (but NOT feature/featA/featB)
+      - "feature/**" # Matches feature/featA and feature/featB and also feature/featA/featB
+      - "!feature/featA" # Excludes feature/featA branch
+    #branches-ignore:
+       # -develop  --All except develop
+    #You can not use branchesa and branches ignore together
+#Order of putting these instructions matters
+#so if exclusion came first and inclusion next, it will be included
+
+    tags:
+      - v1*
+      - "!v1.1.1"
+   #tags-ignore:
+      # - v1.2.0  --All except v1.2.0
+    #You can not use tags and tags ignore together
+    
+    paths:
+        -"**.json" # Matches all JSON files in the repository
+    #paths-ignore:
+      #  - "docs/**" # Ignores all files in the docs directory
+      #  - "README.md" # Ignores the README.md file
+       # - "!docs/README.md" # Includes docs/README.md even if docs/** is ignored
+   
+  #...............................................#
+
+  #All these filters apply to pull_request too
+
+  #...............................................#
+
+
+jobs:       
+  simple-action:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Simple JS action
+          id: greet
+          uses: actions/hello-world-javascript-action@main #@v1.2.0 or @v1 or @commit_id
+          with:
+            who-to-greet: Shreyansh
+     
