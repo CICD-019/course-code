@@ -1,5 +1,6 @@
 name: Expressions & Contexts
 on: [push, pull_request, issues, workflow_dispatch]
+run-name: "Expressions and Workflow by @${{ github.actor }}, event: ${{ github.event_name }}" 
 
 jobs:
     using-expressions-and-contexts:
@@ -20,10 +21,14 @@ jobs:
         -  name: Dump Context
            run: | 
                 echo '${{ toJson(github) }}'
-                echo '${{ toJson(job) }}'
+                echo '${{ toJson(job) }}' 
                 echo '${{ toJson(secrets) }}'
                 echo '${{ toJson(steps) }}'
                 echo '${{ toJson(runner) }}'
             
 
-        
+        #Job tells success or not.. secrets has *** for github tokens
+        #github has all required github info
+        #steps has breid fata on expressions steps along with outputs, if any
+        #runner has info on the runner machine
+
