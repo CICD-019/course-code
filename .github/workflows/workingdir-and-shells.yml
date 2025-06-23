@@ -19,6 +19,6 @@ jobs:
           run: |
                 pwd
                 ls 
-                echo $GITHUB_SHA
-                echo $GITHUB_WORKSPACE
-                echo $GITHUB_REPOSITORY
+                echo $env:GITHUB_SHA
+                echo $env:GITHUB_WORKSPACE
+                echo $env:GITHUB_REPOSITORY
