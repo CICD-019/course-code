@@ -29,3 +29,6 @@ jobs:
         runs-on: ubuntu-latest
         needs: job-1
         if : failure()
+        steps:
+            - name: Step2
+              run: echo 'This job runs only if job-1 fails'
