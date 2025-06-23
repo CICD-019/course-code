@@ -1,0 +1,15 @@
+#respository_dispatch event is for running workflow on an external event that is not running on GitHub.
+
+name: External Events
+on: 
+    repository_dispatch:
+
+jobs:
+    echo-a-string:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "Repository Dispatched"
+
+            
+#This has to live on default(main) branch
+#Any other branch wont be suitable for repository dispatch event
