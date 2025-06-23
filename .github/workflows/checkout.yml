@@ -18,7 +18,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: List files before
-              run: ls -a
+              run: ls 
 
             - name: Checkout
               run: |
