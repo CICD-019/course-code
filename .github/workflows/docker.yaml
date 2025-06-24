@@ -33,7 +33,7 @@ jobs:
             - name: Container for a step
               uses: docker://node:18.16-alpine3.17
               with:
-                entrypoint: /home/shreyansh.pandey@simform.dom/.nvm/versions/node/v22.14.0/bin/node
+                entrypoint: /usr/local/bin/node
                 args: -p 2+3
             - name: Log node version
               uses: docker://node:18.16-alpine3.17
