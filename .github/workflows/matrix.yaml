@@ -1,0 +1,54 @@
+name: Matrix
+on: [push]
+
+jobs:
+    node-matrix:
+        continue-on-error: $${{ matrix.experimental == true }} #IF TRUE, Allows the job to continue even if it fails
+        #This dynamic behaviour over rides fail fast true.
+        strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest] #Matrix to specify allowed OS versions
+                node-version: [14, 15, 16] #Matrix to specify allowed node versions# {os: ubuntu-latest, node-version: 14},
+
+# XXX(EXCLUDED) {os: ubuntu-latest, node-version: 14, is-ubuntu: true,experimental: false},              
+# {os: ubuntu-latest, node-version: 15, is-ubuntu: true, experimental: false},
+# {os: ubuntu-latest, node-version: 16, is-ubuntu: true, experimental: true},
+# {os: windows-latest, node-version: 14, experimental: false},
+# {os: windows-latest, node-version: 15, experimental: false},
+# {os: windows-latest, node-version: 16, experimental: false},
+# {os: macos-latest, node-version: 15},
+# {os: ubuntu-latest, node-version: 17},
+                include: #SEE BEHAVIOUR IN ABOVE EXAMPLE
+                    -  os: ubuntu-latest
+                       is-ubuntu: true
+                    -  os: macos-latest
+                       node-version: 15
+                    -  experimental: false
+                    -  os: ubuntu-latest
+                       node-version: 16
+                       experimental: true
+                    -  os: ubuntu-latest
+                       node-version: 17
+                
+                exclude:
+                    -  os: ubuntu-latest
+                       node-version: 14 #Excludes this combination from the matrix     
+           # max-parallel: 2 
+            fail-fast: true #If true, stops the job if one of the jobs in the matrix fails
+        runs-on: ${{ matrix.os }} #Runs job on all OS versions specified in the matrix
+        steps:
+            -  if: matrix.experimental == true
+               run: exit 1
+            -  run: node -v
+            -  run: echo '${{ toJson(matrix) }}' #Prints the matrix in JSON format
+            -  uses: actions/setup-node@v3 #Action to use different versions of node
+               with:
+                node-version: ${{ matrix.node-version }} #Runs job multiple ttimes using all node versions specified in the matrix
+            -  run: node -v
+
+#Continue errror prevents workflow from failing if ne job fails
+#fail-fast prevents stopping other pending or other jobs if one job fails 
+
+# Feature            Behavior
+# continue-on-error  The failed job is marked as "neutral", not "failed" — so it doesn’t affect the workflow status.
+# fail-fast: true    Is not triggered, because the failed job is treated as successful (neutral). So other jobs keep running.
