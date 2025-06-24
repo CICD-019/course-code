@@ -6,10 +6,13 @@ on:
 jobs:
     pr-comment:
         runs-on: ubuntu-latest
+        permissions: #read-all or write-all or {}
+            pull-requests: write #This is required to create comments on PRs
         steps:
            - name: Comment for new PRs
              uses: actions/github-script@v6 #Javascript in your steps access to github rest api provided
              with:
+              github-token: ${{ secrets.GITHUB_TOKEN }} #This is required to access the github rest api
               script: |
                 github.rest.issues.createComment({
                     owner: context.repo.owner,
