@@ -81,8 +81,14 @@ jobs:
                 entrypoint: /github/workspace/script.sh  # Use absolute path
                 args: "some-arg1 some-arg2"
 
-
-
+            #Lets send a slack message using webhook
+            - name: Send Slack message
+              uses: docker://technosophos/slack-notify
+              env:
+                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}  # Use a secret for the webhook URL(Repo secret)
+                SLACK_TITLE: "From GitHub Actions"
+                SLACK_MESSAGE: "This is a message from Actor: ${{ github.actor }} using Docker container , Event: ${{ github.event_name }} and Workflow: ${{ github.workflow }}"
+                SLACK_COLOR: "#723fc4"  # Optional: Set a color for the message
 #Note:------------------------------------------------------------------------------------
 #Working directory between different containers 
 #share same volume mounts on host machine
