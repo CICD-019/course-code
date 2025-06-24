@@ -48,11 +48,19 @@ jobs:
                 args: shared-file.txt
 
 #Now lets use custom entrypoint script script.sh in our root folder
+            # First checkout the repository to get script.sh
             - uses: actions/checkout@v3
             
             # Make script executable (required for custom entrypoint)
             - name: Make script executable
               run: chmod +x script.sh
+              
+            # Verify script exists and is executable
+            - name: Verify script
+              run: |
+                ls -la script.sh
+                echo "Script content:"
+                cat script.sh
               
             - name: Run custom entrypoint script
               uses: docker://node:18.16-alpine3.17
