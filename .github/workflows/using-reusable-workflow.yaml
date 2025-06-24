@@ -1,0 +1,17 @@
+name: Calling Reusable Workflow 
+on: 
+    workflow_dispatch:
+        inputs:
+            name:
+                description: 'Name'
+                type: string
+                default: "Shreyansh"
+                required: false
+
+jobs:
+    calling-reusable-workflow:
+        uses: CICD-019/workflows/.github/workflows/reusable.yaml@main 
+        with:
+            name: '${{ inputs.name}}'
+        secrets: #inherit - pass all secrets from here to called workflow
+            access-token: ${{ secrets.ACCESS_TOKEN }}
