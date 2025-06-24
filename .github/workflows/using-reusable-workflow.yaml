@@ -10,7 +10,7 @@ on:
 
 jobs:
     calling-reusable-workflow:
-        uses: CICD-019/workflows/.github/workflows/reusable.yaml@main 
+        uses: CICD-019/workflows/.github/workflows/reusable.yml@main 
         with:
             name: '${{ inputs.name}}'
         secrets: #inherit - pass all secrets from here to called workflow
