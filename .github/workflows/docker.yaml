@@ -1,0 +1,31 @@
+name: Docker
+on: [workflow_dispatch]
+
+jobs:
+    docker-job:
+        runs-on: ubuntu-latest
+        container: #All options below are used in docker create command
+            image: node:20.3-alpine3.17
+            #For private image
+           # credentials:
+           #     username: ${{ secrets.DOCKER_USERNAME }}
+            #    password: ${{ secrets.DOCKER_PASSWORD }}
+            env:
+                API_URL: some-url.com
+            ports:
+                - 80
+            # volumes:
+            #     - vol_name:/path/in/container
+            #     - /path/to/container
+            #     - /path/in/host:/path/in/container
+
+           # options: --cpus 1 --All options of docker create comamnds are valid
+               
+        steps:
+            - name: Log node and OS version
+              run: |
+                node -v
+                cat /etc/os-release
+            - name: Log ENV
+              run: echo "API_URL is $API_URL"
+
