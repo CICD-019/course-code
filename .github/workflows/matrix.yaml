@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
     node-matrix:
-        continue-on-error: $${{ matrix.experimental == true }} #IF TRUE, Allows the job to continue even if it fails
+        continue-on-error: ${{ matrix.experimental == true }} #IF TRUE, Allows the job to continue even if it fails
         #This dynamic behaviour over rides fail fast true.
         strategy:
             matrix:
