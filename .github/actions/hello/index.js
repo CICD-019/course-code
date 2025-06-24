@@ -8,7 +8,7 @@ try {
 
 core.debug('Debugging is enabled');
 core.warning('This is a warning message');
-core.console.error('This is an error message');
+
 
 const name = core.getInput('who_to_greet');
 
