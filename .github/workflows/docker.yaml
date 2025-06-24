@@ -56,16 +56,25 @@ jobs:
               run: chmod +x script.sh
               
             # Verify script exists and is executable
-            - name: Verify script
+            - name: Verify script in current directory
               run: |
+                pwd
+                ls -la
+                echo "Looking for script.sh:"
                 ls -la script.sh
                 echo "Script content:"
                 cat script.sh
+                echo "Current working directory files:"
+                find . -name "script.sh" -type f
               
-            - name: Run custom entrypoint script
+            # Try running the script directly first (without Docker)
+            - name: Test script locally
+              run: ./script.sh "test-arg1" "test-arg2"
+              
+            - name: Run custom entrypoint script in Docker
               uses: docker://node:18.16-alpine3.17
               with:
-                entrypoint: ./script.sh  # Use relative path with ./
+                entrypoint: /github/workspace/script.sh  # Use absolute path
                 args: "some-arg1 some-arg2"
 
 
