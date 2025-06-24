@@ -52,7 +52,7 @@ jobs:
             - name: Run custom entrypoint script
               uses: docker://node:18.16-alpine3.17
               with:
-                entrypoint: ./script.sh
+                entrypoint: script.sh
                 args: "some-arg1 some-arg2"
 
 
