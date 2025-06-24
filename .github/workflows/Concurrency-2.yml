@@ -1,4 +1,13 @@
-name: Concurrency-1
+#Share same concurrency group with Concurrency-1.yml
+# to avoid both running at the same time
+#cross-workflow concurrency
+
+#This behaviour is rare.
+#So have dfferent concurrency group names even cross workflows
+
+
+name: Concurrency-2
+run-name: Concurrency-2 (${{ inputs.environment }})
 on: 
     workflow_dispatch:
         inputs:
@@ -6,7 +15,11 @@ on:
                 description: "Select an environment"
                 type: environment
                 required: true
-            
+concurrency: 
+   # group: concurrency-1 #Concurrency Group  
+                         #Can also be applied at job level  
+    group: ${{ github.event.inputs.environment }} #Concurrency Group based on input environment so 2 env runs dont interfere each other
+    cancel-in-progress: true #Cancels any in-progress runs and runs latest of this group when a new run is triggered   
 jobs:
     sleep:
         runs-on: ubuntu-latest
