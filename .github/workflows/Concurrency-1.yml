@@ -1,0 +1,23 @@
+name: Concurrency-1
+on: 
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: "Select an environment"
+                type: environment
+                required: true
+concurrency: concurrency-1 #Concurrency Group  
+#Can also be applied at job level     
+jobs:
+    sleep:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Sleep for 30 seconds
+              run: sleep 30
+
+#Concurrency makes sure if a  workflow/job's multiple instances run at once
+#Only latets run is done rest are not run
+#Meaning run this qworkflow 4 times, only th first one will run at once
+#Rest all will be aborted unless its complete
+#Once its completes, run next
+#One concurrency group- one run at a time
