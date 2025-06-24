@@ -1,0 +1,24 @@
+#For simple-action.yaml workflow
+
+
+name: Hello World
+author: Shreyansh Pandey
+description: "Greet someone and record the time"
+inputs:
+  who-to-greet:
+    description: "Who to greet"
+    required: true
+    default: "World"
+
+outputs:
+  time:
+    description: "The time when the greeting was made"
+
+runs: 
+  using: "node16"
+  main:  index.js
+
+pre: "setup.js" #Does not work on private, in repo, defined actions so its just as an example here
+pre-if: runner.os == 'Linux' #if true then pre runs
+post: "cleanup.js"
+post-if: github.event_name == 'push' #if true then post runs
