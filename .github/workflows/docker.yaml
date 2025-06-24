@@ -49,10 +49,15 @@ jobs:
 
 #Now lets use custom entrypoint script script.sh in our root folder
             - uses: actions/checkout@v3
+            
+            # Make script executable (required for custom entrypoint)
+            - name: Make script executable
+              run: chmod +x script.sh
+              
             - name: Run custom entrypoint script
               uses: docker://node:18.16-alpine3.17
               with:
-                entrypoint: script.sh
+                entrypoint: ./script.sh  # Use relative path with ./
                 args: "some-arg1 some-arg2"
 
 
