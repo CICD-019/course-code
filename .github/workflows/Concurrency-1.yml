@@ -1,4 +1,5 @@
 name: Concurrency-1
+run-name: Concurrency-1 (${{ inputs.environment }})
 on: 
     workflow_dispatch:
         inputs:
@@ -7,8 +8,9 @@ on:
                 type: environment
                 required: true
 concurrency: 
-    group: concurrency-1 #Concurrency Group  
+   # group: concurrency-1 #Concurrency Group  
                          #Can also be applied at job level  
+    group: ${{ github.event.inputs.environment }} #Concurrency Group based on input environment so 2 env runs dont interfere each other
     cancel-in-progress: true #Cancels any in-progress runs and runs latest of this group when a new run is triggered   
 jobs:
     sleep:
