@@ -46,8 +46,21 @@ jobs:
               with:
                 entrypoint: cat
                 args: shared-file.txt
-               
 
+#Now lets use custom entrypoint script script.sh in our root folder
+            - uses: actions/checkout@v3
+            - name: Run custom entrypoint script
+              uses: docker://node:18.16-alpine3.17
+              with:
+                entrypoint: ./script.sh
+                args: "some-arg1 some-arg2"
+
+
+
+#Note:------------------------------------------------------------------------------------
 #Working directory between different containers 
-#share same volume mounts on host amchine
+#share same volume mounts on host machine
 #so any changes in workdir of any container is accessible by other containers
+#Networks are also shared
+#You can also sue custom entrypoint scripts 
+#just give them execute permissions first
