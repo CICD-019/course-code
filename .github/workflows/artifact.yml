@@ -20,3 +20,27 @@ jobs:
                 echo "Files in this directory are: "
                 ls -la
                 echo "Files Uploaded"
+
+    # NEW JOB: Download and use the artifact
+    Download-and-use-artifact:
+        needs: Upload-an-artifact  # Wait for upload job to finish
+        runs-on: ubuntu-latest
+        name: Download and use name.txt
+        steps:
+            # Download the artifact that was uploaded in previous job
+            - name: Download artifact
+              uses: actions/download-artifact@v4
+              with:
+                name: name.txt          # Same name as uploaded
+                path: ./downloaded/     # Download to this folder
+
+            # Show what we downloaded and use it
+            - name: Use the downloaded file
+              run: |
+                echo "=== Downloaded files ==="
+                ls -la ./downloaded/
+                echo ""
+                echo "=== Content of downloaded name.txt ==="
+                cat ./downloaded/name.txt
+                echo ""
+                echo "=== Processing complete ==="
