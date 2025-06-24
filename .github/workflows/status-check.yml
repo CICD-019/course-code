@@ -6,15 +6,16 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Step1
-              run: sleep 20
+              run: sleep 90
+              timeout-minutes: 1
 
             - name: Step2
               id: step-2
+              continue-on-error: true
               run: exit 1
 
             - name: Runs on failure
-              #if: failure()
-              if: steps.step-2.conclusion == 'failure'
+              if: failure() && steps.step-2.conclusion == 'failure'
               #run: echo 'Runs on failure'
               run: "Step2 has failed"
 
