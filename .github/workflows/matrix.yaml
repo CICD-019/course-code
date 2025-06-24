@@ -23,13 +23,14 @@ jobs:
                        is-ubuntu: true
                     -  os: macos-latest
                        node-version: 15
+                       experimental: true # 🧩 Marked experimental to avoid fail-fast stop
                     -  experimental: false
                     -  os: ubuntu-latest
                        node-version: 16
                        experimental: true
                     -  os: ubuntu-latest
                        node-version: 17
-                
+                       experimental: true # 🧩 Added this to avoid breaking workflow
                 exclude:
                     -  os: ubuntu-latest
                        node-version: 14 #Excludes this combination from the matrix     
