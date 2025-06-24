@@ -1,0 +1,41 @@
+name: Dynmaic Matrix
+on: 
+    workflow_dispatch:
+        inputs:
+            os:
+                description: 'Select an OS'
+                type: string
+                default: "ubuntu-latest, windows-latest"
+            node-version:
+                description: 'Select Node.js version'
+                type: string
+                default: "14,15,16"
+                
+
+jobs:
+    prepare-matrix-from-string:
+        runs-on: ubuntu-latest
+        steps: 
+           -  run: echo "step-output=value" >> $GITHUB_OUTPUT
+              id: step-1
+           -  run: echo "step-output=value-2" >> $GITHUB_OUTPUT
+              id: step-2
+           -  run: |
+                echo "${{ steps.step-1.outputs.step-output }}
+                echo "${{ steps.step-2.outputs.step-output }}" "
+           
+    node-matrix:
+        strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest] 
+        runs-on: ${{ matrix.os }} 
+        steps:
+            -  if: matrix.experimental == true
+               run: exit 1
+            -  run: node -v
+            -  run: echo '${{ toJson(matrix) }}' 
+            -  uses: actions/setup-node@v3 
+               with:
+                node-version: ${{ matrix.node-version }}
+            -  run: node -v
+
