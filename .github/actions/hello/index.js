@@ -8,9 +8,9 @@ try {
 
 core.debug('Debugging is enabled');
 core.warning('This is a warning message');
+core.error('This is an error message');  // Fixed: removed .console
 
-
-const name = core.getInput('who_to_greet');
+const name = core.getInput('who-to-greet');  // Fixed: use hyphens not underscores
 
 console.log(`Hello ${name}!`);
 
