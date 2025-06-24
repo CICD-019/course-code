@@ -28,6 +28,8 @@ jobs:
                 cat /etc/os-release
             - name: Log ENV
               run: echo "API_URL is $API_URL"
+            - name: Create a file for shared volume demo
+              run: echo 'some-text' > shared-file.txt
 
             #Step-wise containers
             - name: Container for a step
@@ -39,5 +41,13 @@ jobs:
               uses: docker://node:18.16-alpine3.17
               with:
                 args: -v
+            - name: Display shared file in another container
+              uses: docker://node:18.16-alpine3.17
+              with:
+                entrypoint: cat
+                args: shared-file.txt
                
 
+#Working directory between different containers 
+#share same volume mounts on host amchine
+#so any changes in workdir of any container is accessible by other containers
