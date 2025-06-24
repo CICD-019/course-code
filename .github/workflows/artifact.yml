@@ -12,7 +12,7 @@ jobs:
             - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
-                name: My-Name
+                name: name.txt
                 path: home/shreyansh.pandey@simform.dom/actions-1/name.txt
 
             - name: List-all-Files
