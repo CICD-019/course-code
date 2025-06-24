@@ -61,11 +61,15 @@ jobs:
                 pwd
                 ls -la
                 echo "Looking for script.sh:"
-                ls -la script.sh
-                echo "Script content:"
-                cat script.sh
-                echo "Current working directory files:"
-                find . -name "script.sh" -type f
+                if [ -f script.sh ]; then
+                  ls -la script.sh
+                  echo "Script content:"
+                  cat script.sh
+                else
+                  echo "script.sh not found!"
+                  echo "Available files:"
+                  find . -name "*.sh" -type f
+                fi
               
             # Try running the script directly first (without Docker)
             - name: Test script locally
