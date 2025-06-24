@@ -1,0 +1,23 @@
+name: Artifacts
+on: [push]
+
+jobs:
+    Upload-an-artifact:
+        runs-on: ubuntu-latest
+        name: Upload name.txt
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v3
+              with:
+                name: My-Name
+                path: ../../name.txt
+
+            - name: List-all-Files
+              run: |
+                echo "Files in this directory are: "
+                ls -la
+                echo "Files Uploaded"
+             
