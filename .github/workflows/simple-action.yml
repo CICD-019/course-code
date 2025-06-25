@@ -8,12 +8,12 @@ jobs:
             - uses: actions/checkout@v3
             - name: Simple JS action
               id: greet
-              uses: ./.github/actions/hello
+              uses: ./.github/actions/hello-docker
               with:
-                who-to-greet: Shreyansh
+                who_to_greet: Shreyansh
 
             - name: Log Greet Time
-              run: echo "{{ steps.greet.outputs.time }}"
+              run: echo "${{ steps.greet.outputs.time }}"
 
             - name: Log ENV VAR
               run : echo $HELLO_TIME
