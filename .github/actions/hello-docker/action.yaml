@@ -18,7 +18,7 @@ runs:
   image: "Dockerfile"  
   #Override cmd below
   args:
-    - ${{ inputs.who_to_greet }}
+    - ${{ inputs.who-to-greet }}
   env:
     HELLO: WORLD
   post-entrypoint: "/cleanup.sh"
