@@ -9,7 +9,7 @@ inputs:
   upload_joke:
     description: Upload the joke as an artifact
     required: false
-    default: false
+    default: "false"
   slack_webhook:
     description: Slack webhook URL to post the joke
     required: false
@@ -28,6 +28,7 @@ runs:
       run: |
         joke=$(curl -s https://icanhazdadjoke.com/ -H "Accept: text/plain")
         echo "random_joke=${joke}" >> $GITHUB_OUTPUT
+        echo "Fetched joke: ${joke}"
         
     - name: Create joke file
       if: ${{ inputs.upload_joke == 'true' }}
@@ -46,6 +47,6 @@ runs:
       uses: docker://technosophos/slack-notify
       env:
         SLACK_WEBHOOK: ${{ inputs.slack_webhook }}
-        SLACK_TITLE: " Random Joke Time!"
-        SLACK_MESSAGE: ${{ inputs.slack_username && format('@{0}: {1}', inputs.slack_username, steps.fetch-joke.outputs.random_joke) || steps.fetch-joke.outputs.random_joke }}
+        SLACK_TITLE: "🤣 Random Joke Time!"
+        SLACK_MESSAGE: "${{ inputs.slack_username != '' && format('@{0}: {1}', inputs.slack_username, steps.fetch-joke.outputs.random_joke) || steps.fetch-joke.outputs.random_joke }}"
         SLACK_COLOR: "#723fc4"
