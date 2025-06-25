@@ -1,0 +1,50 @@
+name: Environment Variables
+on: [push]
+
+#Env Variables(workflow level for all jobs and steps)
+env:
+  WF_LEVEL_ENV: Available to all jobs
+
+jobs: 
+    env-vars-and-context:
+        runs-on: ubuntu-latest
+        #if: github.ref == 'refs/heads/main'
+        #Here $GITHUB_REF is invalid
+        #So somwehere you can use only context and vice versa
+        env:
+            JOB_LEVEL_ENV: Available to all steps in this job
+        steps:
+           -  name: Log ENV VAR
+              run: echo $GITHUB_REF
+           -  name: Log Context
+              run: echo '${{ github.ref}}' 
+           
+           -  name: Set ENV var 
+              run: |
+                echo "NEW_ENV_VAR=$(date)" >> "$GITHUB_ENV"
+                echo "JOB_LEVEL_ENV=$RANDOM" >> "$GITHUB_ENV"
+#These dynamic variables will be available to all steps in this job
+#This is for bash..so see for powershell in documentation
+
+           -  name: Multiline ENV VAR
+              run: |
+               DELIMETER=1234
+               echo "RANDOM_JOKE<<$DELIMETER" >> "$GITHUB_ENV"
+               echo "Here is the joke" >> "$GITHUB_ENV"
+               echo "Why did the chicken cross the road?" >> "$GITHUB_ENV"
+               echo "To get to the other side!" >> "$GITHUB_ENV"
+               curl -s https://icanhazdadjoke.com/ >> "$GITHUB_ENV"
+               echo " " >>  "$GITHUB_ENV"
+               echo "$DELIMETER" >> "$GITHUB_ENV"
+
+           -  name: Log custom ENV VAR
+              env:
+               STEP_LEVEL_ENV: Available to this step only 
+               WF_LEVEL_ENV: Overridden in step
+              run: |
+                echo '${{ env.STEP_LEVEL_ENV }}'
+                echo $STEP_LEVEL_ENV
+                echo $WF_LEVEL_ENV
+                echo $JOB_LEVEL_ENV
+                echo $NEW_ENV_VAR
+                echo $RANDOM_JOKE

@@ -1,0 +1,17 @@
+name: Repository Event
+on: 
+    push:
+     branches: [main, master]
+    pull_request:
+     types: [opened, synchronize, reopened, assigned]
+    issues:
+     types: [opened]
+
+jobs:
+    checkout-test:
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+                echo $GITHUB_SHA
+                echo $GITHUB_REF
+            - uses: actions/checkout@v3

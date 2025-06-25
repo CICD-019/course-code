@@ -1,0 +1,51 @@
+CONTAINER WORKING DIRECTORY SHARING IN GITHUB ACTIONS
+====================================================
+
+What does "Working directory between different containers share same volume mounts" mean?
+
+SIMPLE EXPLANATION:
+------------------
+Think of containers like separate computers, but they all share the same "workspace folder".
+
+THE PROBLEM:
+-----------
+- Normally, each container is isolated
+- If Container A creates a file, Container B can't see it
+- They're like separate rooms with locked doors
+
+THE SOLUTION (Shared Volume Mounts):
+-----------------------------------
+- GitHub Actions creates a shared folder on the host machine
+- ALL containers in the same job can access this shared folder
+- It's like having a "shared drive" that everyone can read/write to
+
+HOW IT WORKS:
+------------
+1. GitHub Actions mounts the same host directory (/github/workspace) into every container
+2. Any file created by one container is visible to all other containers
+3. All containers see the same working directory
+
+EXAMPLE SCENARIO:
+----------------
+Container 1 (Node.js):  Creates file "output.json" 
+Container 2 (Python):   Can read "output.json" and process it
+Container 3 (Docker):   Can package "output.json" into an image
+
+REAL-WORLD USE CASES:
+--------------------
+- Build → Test → Deploy pipeline
+- Multi-language projects (Node.js builds, Python tests, Docker packages)
+- Data processing pipelines
+- Shared configuration files
+
+KEY BENEFITS:
+------------
+✅ Easy file sharing between containers
+✅ No need for external storage
+✅ Seamless multi-container workflows
+✅ Each step can use different programming languages/tools
+
+BOTTOM LINE:
+-----------
+All containers in the same GitHub Actions job share the same workspace folder,
+so they can easily pass files and data between each other!
