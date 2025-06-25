@@ -40,3 +40,12 @@ runs:
       with:
         name: random-joke
         path: joke.txt
+        
+    - name: Send Slack message
+      if: ${{ inputs.slack_webhook != '' }}
+      uses: docker://technosophos/slack-notify
+      env:
+        SLACK_WEBHOOK: ${{ inputs.slack_webhook }}
+        SLACK_TITLE: " Random Joke Time!"
+        SLACK_MESSAGE: ${{ inputs.slack_username && format('@{0}: {1}', inputs.slack_username, steps.fetch-joke.outputs.random_joke) || steps.fetch-joke.outputs.random_joke }}
+        SLACK_COLOR: "#723fc4"
