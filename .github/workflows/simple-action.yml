@@ -1,4 +1,24 @@
-name: Simple-Action
+# name: Simple-Action
+# on: [push]
+
+# jobs: 
+#     simple-action:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - uses: actions/checkout@v3
+#             - name: Simple JS action
+#               id: greet
+#               uses: ./.github/actions/hello-docker
+#               with:
+#                 who-to-greet: Shreyansh
+
+#             - name: Log Greet Time
+#               run: echo "${{ steps.greet.outputs.time }}"
+
+#             - name: Log ENV VAR
+#               run : echo $HELLO_TIME
+
+name: Simple-Composite-Action
 on: [push]
 
 jobs: 
@@ -6,15 +26,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - name: Simple JS action
-              id: greet
-              uses: ./.github/actions/hello-docker
+            - name: Send joke on slack
+              uses: ./.github/actions/slack-joke-composite
+              id: slack-joke
               with:
-                who-to-greet: Shreyansh
-
-            - name: Log Greet Time
-              run: echo "${{ steps.greet.outputs.time }}"
-
-            - name: Log ENV VAR
-              run : echo $HELLO_TIME
-
+                slack_username: Shreyansh
+                upload_joke: true
+                slack_webhook: ${{ secrets.SLACK_WEBHOOK }}  # Use a secret
+            - name: Displaying joke output
+              run: echo '${{ steps.slack-joke.outputs.random_joke }}'
