@@ -1,6 +1,5 @@
 #For simple-action.yaml workflow
 
-
 name: Hello World
 author: Shreyansh Pandey
 description: "Greet someone and record the time"
@@ -16,12 +15,12 @@ outputs:
 
 runs: 
   using: "docker"
-  image: 'Dockerfile'  
+  image: "Dockerfile"  
   #Override cmd below
   args:
-    - ${{ inputs.who_to_greet }}
+    - ${{ inputs.who-to-greet }}
   env:
-  HELLO: WORLD
+    HELLO: WORLD
   post-entrypoint: "/cleanup.sh"
   post-if: runner.os == 'Linux' #if true then post runs
 
